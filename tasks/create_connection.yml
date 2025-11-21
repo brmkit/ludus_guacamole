@@ -1,0 +1,24 @@
+- name: Resolve IP address for {{ item.name }}
+  command: "nslookup {{ item.hostname | default(item.name) }}"
+  register: nslookup_result
+  changed_when: false
+  failed_when: nslookup_result.rc != 0
+
+# just a workaround to extract the IP from nslookup output - in ludus it seems there's no direct way to get the IP of other VMs (as variables)
+- name: Extract correct IP from nslookup output
+  set_fact:
+    connection_ip_address: "{{ (nslookup_result.stdout | regex_findall('Address:\\s+([0-9.]+)'))| last }}"
+
+- name: Create connection in Guacamole for {{ item.name }}
+  scicore.guacamole.guacamole_connection:
+    base_url: http://localhost:8080
+    auth_username: guacadmin
+    auth_password: guacadmin
+    connection_name: "{{ item.name }}"
+    protocol: "{{ item.protocol }}"
+    hostname: "{{ connection_ip_address }}"
+    port: "{{ item.port }}"
+    username: "{{ item.username | default('') }}"
+    password: "{{ item.password | default('') }}"
+    rdp_ignore_server_certs: true
+    state: present

@@ -1,0 +1,12 @@
+services:
+  guacamole:
+    image: flcontainers/guacamole
+    container_name: guacamole
+    environment:
+      TZ: 'UTC'
+      EXTENSIONS: '{{ guacamole_extensions_list }}'
+    volumes:
+      - "{{ guacamole_install_dir }}/guacamole:/config"
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 8080:8080

@@ -1,19 +1,13 @@
 ---
-# This workflow requires a GALAXY_API_KEY secret present in the GitHub
-# repository or organization.
-#
-# See: https://github.com/marketplace/actions/publish-ansible-role-to-galaxy
-# See: https://github.com/ansible/galaxy/issues/46
-
 name: Release
 'on':
   push:
-    tags:
-      - '*'
+    branches:
+      - 'main'
 
 defaults:
   run:
-    working-directory: 'ludus_ansible_role'
+    working-directory: 'brmkit.ludus_guacamole'
 
 jobs:
 
@@ -24,7 +18,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v4
         with:
-          path: 'ludus_ansible_role'
+          path: 'brmkit.ludus_guacamole'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5

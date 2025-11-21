@@ -1,61 +1,85 @@
-# README
+# ludus_guacamole
 
-This template includes a task yml for caching downloads to the Ludus host (download_file.yml) as well as GitHub action to push the role to Ansible Galaxy when a tag is created in git. You'll need to get a [Galaxy token](https://galaxy.ansible.com/ui/token/) and set it as `GALAXY_API_KEY` in [Github Secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) for the Ansible Galaxy deployment to work correctly.
-
-Remove this section, and replace all `{{ variable }}` strings. Write your tasks in `./tasks/main.yml`
-
-# Ansible Role: {{ Thing }} ([Ludus](https://ludus.cloud))
-
-An Ansible Role that installs [{{ Something }}](https://example.com) on {{ type of host }} and optionally configures [{{ Another Thing }}](https://example).
-
-> [!WARNING]
-> This is a warning about something in this role
+An Ansible Role that installs [Guacamole](https://guacamole.apache.org/) on Linux in a Ludus range, and optionally configures connections.
 
 ## Requirements
 
-None.
+```bash
+ludus ansible collection add scicore.guacamole
+```
 
 ## Role Variables
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-    # This is a comment explaining the variable below
-    ludus_thing_variable1: true
+    guacamole_install_dir: "/opt/guacamole"
+    guacamole_extensions_list: auth-jdbc-postgresql     # check https://github.com/flcontainers/guacamole
+    guacamole_connections: []
+      - name: "Server1"
+        hostname: "server-1"
+        port: 3389
+        protocol: rdp
+        username: "rdpuser"
+        password: "rdppass"
+        domain: "DOMAIN"
 
 ## Dependencies
 
-None.
-
-## Example Playbook
-
-```yaml
-- hosts: {{ thing }}_hosts
-  roles:
-    - {{ your github username }}.{{ this repo name }}
-  vars:
-    {{ role vars here }}
-```
+Docker: [geerlingguy.docker](https://galaxy.ansible.com/ui/standalone/roles/geerlingguy/docker/)
+Guacamole Connections: [scicore.guacamole](https://galaxy.ansible.com/ui/repo/published/scicore/guacamole/)
 
 ## Example Ludus Range Config
 
 ```yaml
 ludus:
-  - vm_name: "{{ range_id }}-ad-dc-win2022-server-x64-1"
-    hostname: "{{ range_id }}-DC01-2022"
-    template: win2022-server-x64-template
+  - vm_name: "{{ range_id }}-DC"
+    hostname: "{{ range_id }}-DC"
+    template: win2022-server-x64-us-template
     vlan: 10
     ip_last_octet: 11
-    ram_gb: 6
+    ram_gb: 8
     cpus: 4
     windows:
-      sysprep: true
+      sysprep: false
     domain:
-      fqdn: ludus.domain
+      fqdn: guacamole.test
       role: primary-dc
+  - vm_name: "{{ range_id }}-WIN10"
+    hostname: "{{ range_id }}-WIN10"
+    template: win10-22h2-x64-enterprise-template
+    vlan: 10
+    ip_last_octet: 21
+    ram_gb: 8
+    cpus: 4
+    windows:
+      sysprep: false
+    domain:
+      fqdn: guacamole.test
+      role: member
+  - vm_name: "{{ range_id }}-GUACAMOLE"
+    hostname: "{{ range_id }}-GUACAMOLE"
+    template: ubuntu-24.04-x64-server-template
+    vlan: 10
+    ip_last_octet: 50
+    ram_gb: 4
+    cpus: 2
+    linux: true
     roles:
-      - {{ your github username }}.{{ this repo name }}
+      - ludus_guacamole
     role_vars:
-      {{ example role var usage }}
+      guacamole_connections:
+        - name: "{{ range_id }}-DC"
+          protocol: rdp
+          domain: "GUACAMOLE"
+          username: domainadmin
+          password: password
+          port: 3389
+        - name: "Name Example"
+          hostname: "{{ range_id }}-WIN10"
+          protocol: rdp
+          username: localuser
+          password: password
+          port: 3389
 ```
 
 ## License
@@ -65,4 +89,4 @@ MIT
 
 ## Author Information
 
-This role was created by [{{Your Github Username}}](https://github.com/{{ your github username }}), for [Ludus](https://ludus.cloud/).
+This role was created by [brmkit](https://github.com/brmkit), for [Ludus](https://ludus.cloud/).

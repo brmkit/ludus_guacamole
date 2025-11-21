@@ -1,22 +1,15 @@
 ---
-dependencies: []
+dependencies:
+  - role: geerlingguy.docker
 
 galaxy_info:
-  role_name: ludus_{{ thing }}
-  author: {{ your github username }}
-  description: An Ansible Role that installs {{ Something }} on {{ type of host }} and optionally configures {{ Another Thing }}
-  company: {{ your company or '' }}
+  role_name: ludus_guacamole
+  author: brmk
+  description: An Ansible Role that installs Guacamole on Linux and configures connections
+  company: ''
   license: GPLv3
   min_ansible_version: "2.10"
   platforms:
-    # Modify the platforms here as required
-    # This example includes a lot, see https://github.com/ansible/ansible-lint/blob/main/src/ansiblelint/schemas/meta.json for all possibilities
-    - name: Windows 
-      versions:
-        - "2012R2"
-        - "2016"
-        - "2019"
-        - "2022"
     - name: Debian
       versions:
         - buster
@@ -28,6 +21,8 @@ galaxy_info:
         - focal
         - jammy
   galaxy_tags:
-    - tagswithnospaces
+    - guacamole
+    - ludus
 
-collections: [] # Add any collections needed here
+collections:
+  - scicore.guacamole
