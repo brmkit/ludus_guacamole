@@ -12,8 +12,10 @@ ludus ansible collection add scicore.guacamole
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
+```yaml
     guacamole_install_dir: "/opt/guacamole"
-    guacamole_extensions_list: auth-jdbc-postgresql     # check https://github.com/flcontainers/guacamole
+    # check https://github.com/flcontainers/guacamole
+    guacamole_extensions_list: auth-jdbc-postgresql
     guacamole_connections: []
       - name: "Server1"
         hostname: "server-1"
@@ -22,10 +24,11 @@ Available variables are listed below, along with default values (see `defaults/m
         username: "rdpuser"
         password: "rdppass"
         domain: "DOMAIN"
-
+```
 ## Dependencies
 
 Docker: [geerlingguy.docker](https://galaxy.ansible.com/ui/standalone/roles/geerlingguy/docker/)
+
 Guacamole Connections: [scicore.guacamole](https://galaxy.ansible.com/ui/repo/published/scicore/guacamole/)
 
 ## Example Ludus Range Config
