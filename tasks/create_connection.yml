@@ -20,5 +20,5 @@
     port: "{{ item.port }}"
     username: "{{ item.username | default('') }}"
     password: "{{ item.password | default('') }}"
-    rdp_ignore_server_certs: true
+    rdp_ignore_server_certs: "{{ true if item.protocol == 'rdp' else omit }}"
     state: present

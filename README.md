@@ -17,13 +17,19 @@ Available variables are listed below, along with default values (see `defaults/m
     # check https://github.com/flcontainers/guacamole
     guacamole_extensions_list: auth-jdbc-postgresql
     guacamole_connections: []
-      - name: "Server1"
+      - name: "ConnectionName"
         hostname: "server-1"
         port: 3389
         protocol: rdp
         username: "rdpuser"
         password: "rdppass"
         domain: "DOMAIN"
+      - name: "ConnectionName"
+        hostname: "server-2"
+        port: 22
+        protocol: ssh
+        username: "sshuser"
+        password: "sshpass"
 ```
 ## Dependencies
 
