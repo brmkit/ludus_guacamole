@@ -74,7 +74,7 @@ ludus:
     cpus: 2
     linux: true
     roles:
-      - ludus_guacamole
+      - brmkit.ludus_guacamole
     role_vars:
       guacamole_connections:
         - name: "{{ range_id }}-DC"
