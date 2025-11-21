@@ -1,7 +1,4 @@
 ---
-dependencies:
-  - role: geerlingguy.docker
-
 galaxy_info:
   role_name: ludus_guacamole
   author: brmk
