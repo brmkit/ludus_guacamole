@@ -1,6 +1,6 @@
 # ludus_guacamole
 
-An Ansible Role that installs [Guacamole](https://guacamole.apache.org/) on Linux in a Ludus range, and optionally configures connections.
+An Ansible Role that installs [Guacamole](https://guacamole.apache.org/) using [Docker Guacamole](https://github.com/flcontainers/guacamole) on Linux in a Ludus range, and optionally configures connections.
 
 ## Requirements
 
@@ -74,6 +74,7 @@ ludus:
     cpus: 2
     linux: true
     roles:
+      - geerlingguy.docker
       - brmkit.ludus_guacamole
     role_vars:
       guacamole_connections:
