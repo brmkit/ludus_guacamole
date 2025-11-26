@@ -1,5 +1,6 @@
 ---
 guacamole_install_dir: "/opt/guacamole"
+guacamole_port: 80
 
 # check https://github.com/flcontainers/guacamole
 guacamole_extensions_list: auth-jdbc-postgresql

@@ -9,4 +9,4 @@ services:
       - "{{ guacamole_install_dir }}/guacamole:/config"
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - 8080:8080
+      - {{ guacamole_port }}:8080

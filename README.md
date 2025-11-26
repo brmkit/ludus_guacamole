@@ -6,6 +6,8 @@ An Ansible Role that installs [Guacamole](https://guacamole.apache.org/) using [
 
 ```bash
 ludus ansible collection add scicore.guacamole
+# or
+ludus --user XX ansible collection add scicore.guacamole
 ```
 
 ## Role Variables
@@ -16,9 +18,9 @@ Available variables are listed below, along with default values (see `defaults/m
     guacamole_install_dir: "/opt/guacamole"
     # check https://github.com/flcontainers/guacamole
     guacamole_extensions_list: auth-jdbc-postgresql
-    guacamole_connections: []
-      - name: "ConnectionName"
-        hostname: "server-1"
+    guacamole_connection:
+      - name: < can be wathever you want, it's just a way to name the connection on guacamole frontend >
+        hostname: < just the HOSTNAME of the vm >
         port: 3389
         protocol: rdp
         username: "rdpuser"
