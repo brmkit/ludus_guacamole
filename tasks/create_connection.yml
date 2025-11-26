@@ -11,7 +11,7 @@
 
 - name: Create connection in Guacamole for {{ item.name }}
   scicore.guacamole.guacamole_connection:
-    base_url: http://localhost:8080
+    base_url: http://localhost:{{ guacamole_port }}
     auth_username: guacadmin
     auth_password: guacadmin
     connection_name: "{{ item.name }}"

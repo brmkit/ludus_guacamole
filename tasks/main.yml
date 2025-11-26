@@ -18,7 +18,7 @@
 
 - name: Wait for Guacamole to be available
   ansible.builtin.uri:
-    url: http://localhost:8080
+    url: http://localhost:{{ guacamole_port }}
     status_code: 200
   register: guac_check
   retries: 10
