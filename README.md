@@ -18,6 +18,7 @@ Available variables are listed below, along with default values (see `defaults/m
     guacamole_install_dir: "/opt/guacamole"
     # check https://github.com/flcontainers/guacamole
     guacamole_extensions_list: auth-jdbc-postgresql
+    guacamole_port: 80 # default http
     guacamole_connection:
       - name: < can be wathever you want, it's just a way to name the connection on guacamole frontend >
         hostname: < just the HOSTNAME of the vm >
@@ -93,6 +94,8 @@ ludus:
           password: password
           port: 3389
 ```
+
+After that you can access the guacamole instance on: `http://10.X.X.50` using `guacadmin`:`guacadmin`
 
 ## License
 
