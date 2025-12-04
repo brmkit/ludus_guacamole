@@ -10,3 +10,4 @@ services:
       - /etc/localtime:/etc/localtime:ro
     ports:
       - {{ guacamole_port }}:8080
+    restart: unless-stopped
